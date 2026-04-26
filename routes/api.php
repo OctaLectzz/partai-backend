@@ -4,14 +4,20 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-// Public Routes
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+// Auth
+Route::prefix('auth')->controller(AuthController::class)->group(function () {
+    Route::post('/register', 'register');
+    Route::post('/login', 'login');
 
-// Protected Routes
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/logout', 'logout');
+        Route::get('/profile', 'profile');
+        Route::put('/profile/edit', 'editprofile');
+        Route::post('/profile/changepassword', 'changepassword');
+    });
+});
+
+// User
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/me', [AuthController::class, 'me']);
-
     Route::apiResource('users', UserController::class);
 });

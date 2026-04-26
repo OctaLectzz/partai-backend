@@ -46,8 +46,9 @@ class UserFactory extends Factory
             'regency_id' => fake()->numerify('##.##'),
             'district_id' => fake()->numerify('##.##.##'),
             'village_id' => fake()->numerify('##.##.##.####'),
-            'postal_code' => fake()->postcode(),
+            'postal_code' => fake()->numerify('#####'),
             'role' => fake()->randomElement(['admin', 'board_member', 'member', 'sympathizer']),
+            'type' => fake()->randomElement(['admin', 'user']),
             'status' => fake()->boolean(90), // 90% chance of being active
             'remember_token' => Str::random(10),
         ];

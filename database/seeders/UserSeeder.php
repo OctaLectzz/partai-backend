@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin System',
             'email' => 'admin@partai.com',
             'role' => 'admin',
+            'type' => 'admin',
             'status' => true,
         ]);
 
@@ -25,6 +26,7 @@ class UserSeeder extends Seeder
             'name' => 'Pengurus Pusat',
             'email' => 'pengurus@partai.com',
             'role' => 'board_member',
+            'type' => 'user',
             'status' => true,
         ]);
 
@@ -33,6 +35,7 @@ class UserSeeder extends Seeder
             'name' => 'Anggota Biasa',
             'email' => 'anggota@partai.com',
             'role' => 'member',
+            'type' => 'user',
             'status' => true,
         ]);
 

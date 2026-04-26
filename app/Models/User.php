@@ -17,7 +17,7 @@ use Laravel\Sanctum\HasApiTokens;
     'place_of_birth', 'date_of_birth', 'gender', 'religion', 'marital_status',
     'education', 'profession', 'address', 'rt', 'rw', 'province_id',
     'regency_id', 'district_id', 'village_id', 'postal_code',
-    'photo_url', 'ktp_photo_url', 'role', 'status',
+    'photo', 'ktp_photo', 'role', 'type', 'status',
 ])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable

@@ -13,37 +13,38 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nik', 16)->unique();
-            $table->string('kta_number')->unique();
+            $table->string('nik', 16)->unique()->nullable();
+            $table->string('kta_number')->unique()->nullable();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at');
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('phone_number');
+            $table->string('phone_number')->nullable();
 
             // Biodata
-            $table->string('place_of_birth');
-            $table->date('date_of_birth');
-            $table->enum('gender', ['M', 'F']);
-            $table->string('religion');
-            $table->string('marital_status');
-            $table->string('education');
-            $table->string('profession');
+            $table->string('place_of_birth')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->enum('gender', ['M', 'F'])->nullable();
+            $table->string('religion')->nullable();
+            $table->string('marital_status')->nullable();
+            $table->string('education')->nullable();
+            $table->string('profession')->nullable();
 
             // Address
-            $table->text('address');
-            $table->string('rt', 3);
-            $table->string('rw', 3);
-            $table->string('province_id');
-            $table->string('regency_id');
-            $table->string('district_id');
-            $table->string('village_id');
-            $table->string('postal_code', 5);
+            $table->text('address')->nullable();
+            $table->string('rt', 3)->nullable();
+            $table->string('rw', 3)->nullable();
+            $table->string('province_id')->nullable();
+            $table->string('regency_id')->nullable();
+            $table->string('district_id')->nullable();
+            $table->string('village_id')->nullable();
+            $table->string('postal_code', 20)->nullable();
 
             // Files & Status
-            $table->string('photo_url')->nullable();
-            $table->string('ktp_photo_url')->nullable();
+            $table->string('photo')->nullable();
+            $table->string('ktp_photo')->nullable();
             $table->enum('role', ['admin', 'board_member', 'member', 'sympathizer'])->default('member');
+            $table->enum('type', ['admin', 'user'])->default('user');
             $table->boolean('status')->default(true); // true = active, false = inactive
 
             $table->rememberToken();

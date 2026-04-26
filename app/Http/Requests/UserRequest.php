@@ -52,8 +52,8 @@ class UserRequest extends FormRequest
             'postal_code' => 'nullable|string|max:5',
 
             // Files & Status
-            'photo_url' => 'nullable|string',
-            'ktp_photo_url' => 'nullable|string',
+            'photo' => 'nullable|string',
+            'ktp_photo' => 'nullable|string',
             'role' => 'nullable|in:admin,board_member,member,sympathizer',
             'status' => 'nullable|boolean',
         ];

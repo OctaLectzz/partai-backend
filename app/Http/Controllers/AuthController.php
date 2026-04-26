@@ -76,8 +76,76 @@ class AuthController extends Controller
         ]);
     }
 
-    public function me(Request $request)
+    public function profile(Request $request)
     {
         return new UserResource($request->user());
+    }
+
+    public function editprofile(Request $request)
+    {
+        /** @var User $user */
+        $user = $request->user();
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'email' => 'sometimes|required|string|email|max:255|unique:users,email,'.$user->id,
+            'nik' => 'nullable|string|max:16|unique:users,nik,'.$user->id,
+            'kta_number' => 'nullable|string|unique:users,kta_number,'.$user->id,
+            'phone_number' => 'nullable|string',
+            'place_of_birth' => 'nullable|string',
+            'date_of_birth' => 'nullable|date',
+            'gender' => 'nullable|in:M,F',
+            'religion' => 'nullable|string',
+            'marital_status' => 'nullable|string',
+            'education' => 'nullable|string',
+            'profession' => 'nullable|string',
+            'address' => 'nullable|string',
+            'rt' => 'nullable|string|max:3',
+            'rw' => 'nullable|string|max:3',
+            'province_id' => 'nullable|string',
+            'regency_id' => 'nullable|string',
+            'district_id' => 'nullable|string',
+            'village_id' => 'nullable|string',
+            'postal_code' => 'nullable|string|max:5',
+        ]);
+
+        if ($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('photos', 'public');
+            $validated['photo'] = $path;
+        }
+
+        if ($request->hasFile('ktp_photo')) {
+            $path = $request->file('ktp_photo')->store('ktp', 'public');
+            $validated['ktp_photo'] = $path;
+        }
+
+        $user->update($validated);
+
+        return new UserResource($user);
+    }
+
+    public function changepassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required|string',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        /** @var User $user */
+        $user = $request->user();
+
+        if (! Hash::check($request->current_password, $user->password)) {
+            return response()->json([
+                'message' => 'Current password does not match.',
+            ], 400);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        return response()->json([
+            'message' => 'Password successfully updated.',
+        ]);
     }
 }
