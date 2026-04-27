@@ -25,7 +25,7 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
-        $event->load('category');
+        $event->load(['category', 'participants'])->loadCount('participants');
 
         return new EventResource($event);
     }

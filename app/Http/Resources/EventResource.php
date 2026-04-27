@@ -22,6 +22,7 @@ class EventResource extends JsonResource
             'slug' => $this->slug,
             'description' => $this->description,
             'organizer' => $this->organizer,
+            'participants' => EventParticipantResource::collection($this->whenLoaded('participants')),
             'participants_count' => $this->whenCounted('participants'),
             'target_participants' => $this->target_participants,
             'start_date' => $this->start_date,
