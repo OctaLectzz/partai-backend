@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventParticipantController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +20,19 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     });
 });
 
-// User
+// Main
+// Event Registration
+Route::post('/events/{event:slug}/register', [EventParticipantController::class, 'store']);
+
+// Dashboard
 Route::middleware('auth:sanctum')->group(function () {
+    // User
     Route::apiResource('users', UserController::class);
+
+    // Category
+    Route::apiResource('categories', CategoryController::class);
+
+    // Event
+    Route::apiResource('events', EventController::class);
+    Route::get('events/{event:slug}/participants', [EventParticipantController::class, 'index']);
 });
