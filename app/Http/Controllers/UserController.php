@@ -5,33 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $users = User::query();
+        $users = User::latest()->get();
 
-        if ($request->has('role')) {
-            $users->where('role', $request->role);
-        }
-
-        if ($request->has('status')) {
-            $users->where('status', $request->boolean('status'));
-        }
-
-        if ($request->has('search')) {
-            $search = $request->search;
-            $users->where(function ($query) use ($search) {
-                $query->where('name', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%")
-                    ->orWhere('nik', 'like', "%{$search}%")
-                    ->orWhere('kta_number', 'like', "%{$search}%");
-            });
-        }
-
-        return UserResource::collection($users->paginate($request->get('per_page', 15)));
+        return UserResource::collection($users);
     }
 
     public function store(UserRequest $request)

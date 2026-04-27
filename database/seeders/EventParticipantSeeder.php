@@ -43,6 +43,7 @@ class EventParticipantSeeder extends Seeder
                     'district_id' => '317101',
                     'village_id' => '3171011001',
                     'message' => $faker->boolean(70) ? $faker->sentence() : null, // 70% chance of leaving a message
+                    'status' => $faker->randomElement(['registered', 'attended']),
                 ]);
             }
         }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('event_participants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('event_id')->constrained()->cascadeOnDelete();
+            $table->string('participant_code')->unique();
             $table->string('name');
             $table->string('nik', 16);
             $table->string('email');
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->string('district_id');
             $table->string('village_id');
             $table->text('message')->nullable();
+            $table->enum('status', ['registered', 'attended'])->default('registered');
             $table->timestamps();
         });
     }

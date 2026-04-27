@@ -17,6 +17,7 @@ class EventParticipantResource extends JsonResource
         return [
             'id' => $this->id,
             'event_id' => $this->event_id,
+            'participant_code' => $this->participant_code,
             'name' => $this->name,
             'nik' => $this->nik,
             'email' => $this->email,
@@ -26,6 +27,7 @@ class EventParticipantResource extends JsonResource
             'district_id' => $this->district_id,
             'village_id' => $this->village_id,
             'message' => $this->message,
+            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

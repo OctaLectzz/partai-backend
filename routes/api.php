@@ -7,6 +7,10 @@ use App\Http\Controllers\EventParticipantController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+// Main
+// Event Registration
+Route::post('/events/{event:slug}/register', [EventParticipantController::class, 'store']);
+
 // Auth
 Route::prefix('auth')->controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
@@ -20,10 +24,6 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     });
 });
 
-// Main
-// Event Registration
-Route::post('/events/{event:slug}/register', [EventParticipantController::class, 'store']);
-
 // Dashboard
 Route::middleware('auth:sanctum')->group(function () {
     // User
@@ -35,4 +35,6 @@ Route::middleware('auth:sanctum')->group(function () {
     // Event
     Route::apiResource('events', EventController::class);
     Route::get('events/{event:slug}/participants', [EventParticipantController::class, 'index']);
+    Route::patch('events/{event:slug}/participants/{participant}', [EventParticipantController::class, 'updateStatus']);
+    Route::post('/events/{event:slug}/participants/scan/{participantCode}', [EventParticipantController::class, 'scanQr']);
 });
