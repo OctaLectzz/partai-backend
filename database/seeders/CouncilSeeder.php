@@ -12,10 +12,12 @@ class CouncilSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create([
-            'kta_number' => now()->format('Ymd').str_pad(User::count() + 1, 4, '0', STR_PAD_LEFT),
-            'role' => 'council',
-            'type' => 'admin',
-        ]);
+        for ($i = 0; $i < 10; $i++) {
+            User::factory()->create([
+                'role' => 'council',
+                'type' => 'admin',
+                'kta_number' => now()->format('Ymd').str_pad(User::count() + 1, 4, '0', STR_PAD_LEFT),
+            ]);
+        }
     }
 }
