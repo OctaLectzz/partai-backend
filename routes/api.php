@@ -4,10 +4,19 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventParticipantController;
+use App\Http\Controllers\IndoRegionController;
+use App\Http\Controllers\MassaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-// Main
+// Regions
+Route::prefix('regions')->controller(IndoRegionController::class)->group(function () {
+    Route::get('/provinces', 'provinces');
+    Route::get('/regencies/{province_id}', 'regencies');
+    Route::get('/districts/{regency_id}', 'districts');
+    Route::get('/villages/{district_id}', 'villages');
+});
+
 // Event Registration
 Route::post('/events/{event:slug}/register', [EventParticipantController::class, 'store']);
 
@@ -37,4 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('events/{event:slug}/participants', [EventParticipantController::class, 'index']);
     Route::patch('events/{event:slug}/participants/{participant}', [EventParticipantController::class, 'updateStatus']);
     Route::post('/events/{event:slug}/participants/scan/{participantCode}', [EventParticipantController::class, 'scanQr']);
+
+    // Massa
+    Route::apiResource('massas', MassaController::class);
 });
