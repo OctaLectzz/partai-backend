@@ -12,6 +12,15 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        // Create a Superadmin user
+        User::factory()->create([
+            'name' => 'Superadmin System',
+            'email' => 'superadmin@partai.com',
+            'role' => 'superadmin',
+            'type' => 'admin',
+            'status' => true,
+        ]);
+
         // Create an Admin user
         User::factory()->create([
             'name' => 'Admin System',
@@ -21,11 +30,11 @@ class UserSeeder extends Seeder
             'status' => true,
         ]);
 
-        // Create a Board Member
+        // Create a Council Member (Dewan)
         User::factory()->create([
-            'name' => 'Pengurus Pusat',
-            'email' => 'pengurus@partai.com',
-            'role' => 'board_member',
+            'name' => 'Anggota Dewan',
+            'email' => 'dewan@partai.com',
+            'role' => 'council',
             'type' => 'user',
             'status' => true,
         ]);

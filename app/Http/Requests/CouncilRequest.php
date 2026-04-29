@@ -2,14 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class CouncilRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
@@ -22,11 +20,11 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $userId = $this->route('user') ? $this->route('user')->id : null;
+        $council = $this->route('council');
+        $userId = $council instanceof User ? $council->id : $council;
 
         return [
             'nik' => 'required|string|size:16|unique:users,nik,'.$userId,
-            'kta_number' => 'nullable|string|unique:users,kta_number,'.$userId,
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,'.$userId,
             'password' => $this->isMethod('post') ? 'required|string|min:8' : 'nullable|string|min:8',
@@ -54,9 +52,8 @@ class UserRequest extends FormRequest
             'longitude' => 'required|numeric|between:-180,180',
 
             // Files & Status
-            'photo' => 'nullable|string',
-            'ktp_photo' => 'nullable|string',
-            'role' => 'nullable|in:superadmin,admin,council,member',
+            'photo' => $userId ? 'nullable' : 'nullable|image|mimes:jpg,jpeg,png,webp,heic|max:2056',
+            'ktp_photo' => $userId ? 'nullable' : 'nullable|image|mimes:jpg,jpeg,png,webp,heic|max:2056',
             'status' => 'nullable|boolean',
         ];
     }

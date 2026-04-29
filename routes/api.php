@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CouncilController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventParticipantController;
 use App\Http\Controllers\IndoRegionController;
@@ -49,4 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Massa
     Route::apiResource('massas', MassaController::class);
+
+    // Council
+    Route::apiResource('councils', CouncilController::class);
 });

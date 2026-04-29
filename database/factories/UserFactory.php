@@ -26,7 +26,6 @@ class UserFactory extends Factory
     {
         return [
             'nik' => fake()->numerify('################'),
-            'kta_number' => fake()->numerify('NP-#########'),
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
@@ -47,7 +46,7 @@ class UserFactory extends Factory
             'district_id' => fake()->numerify('##.##.##'),
             'village_id' => fake()->numerify('##.##.##.####'),
             'postal_code' => fake()->numerify('#####'),
-            'role' => fake()->randomElement(['admin', 'board_member', 'member', 'sympathizer']),
+            'role' => fake()->randomElement(['superadmin', 'admin', 'council', 'member']),
             'type' => fake()->randomElement(['admin', 'user']),
             'status' => fake()->boolean(90), // 90% chance of being active
             'remember_token' => Str::random(10),

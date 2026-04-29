@@ -39,11 +39,13 @@ return new class extends Migration
             $table->string('district_id')->nullable();
             $table->string('village_id')->nullable();
             $table->string('postal_code', 20)->nullable();
+            $table->decimal('latitude', 10, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
 
             // Files & Status
             $table->string('photo')->nullable();
             $table->string('ktp_photo')->nullable();
-            $table->enum('role', ['admin', 'board_member', 'member', 'sympathizer'])->default('member');
+            $table->enum('role', ['superadmin', 'admin', 'council', 'member'])->default('member');
             $table->enum('type', ['admin', 'user'])->default('user');
             $table->boolean('status')->default(true); // true = active, false = inactive
 

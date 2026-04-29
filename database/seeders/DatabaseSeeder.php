@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             EventSeeder::class,
             EventParticipantSeeder::class,
             MassaSeeder::class,
+            CouncilSeeder::class,
         ]);
     }
 }
