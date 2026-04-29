@@ -46,18 +46,6 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * The "booted" method of the model.
-     */
-    protected static function booted(): void
-    {
-        static::creating(function (User $user) {
-            if (! $user->kta_number) {
-                $user->kta_number = 'KTA'.now()->format('Ymd').rand(1000, 9999);
-            }
-        });
-    }
-
     // Photo
     public static function uploadPhoto(UploadedFile $photo, string $nik): string
     {

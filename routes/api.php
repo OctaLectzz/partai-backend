@@ -6,6 +6,7 @@ use App\Http\Controllers\CouncilController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventParticipantController;
 use App\Http\Controllers\IndoRegionController;
+use App\Http\Controllers\KtaController;
 use App\Http\Controllers\MassaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -53,4 +54,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Council
     Route::apiResource('councils', CouncilController::class);
+
+    // KT
+    Route::apiResource('ktas', KtaController::class);
 });
