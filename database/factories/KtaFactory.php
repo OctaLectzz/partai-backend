@@ -33,7 +33,7 @@ class KtaFactory extends Factory
             'district_id' => '1101010',
             'village_id' => '1101010001',
             'postal_code' => $this->faker->postcode(),
-            'photo' => null,
+            'photo' => 'https://ui-avatars.com/api/?name='.urlencode($this->faker->name()).'&background=random',
         ];
     }
 }

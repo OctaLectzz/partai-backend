@@ -14,8 +14,11 @@ use Illuminate\Support\Facades\Route;
 // Regions
 Route::prefix('regions')->controller(IndoRegionController::class)->group(function () {
     Route::get('/provinces', 'provinces');
+    Route::get('/regencies/all', 'allRegencies');
     Route::get('/regencies/{province_id}', 'regencies');
+    Route::get('/districts/all', 'allDistricts');
     Route::get('/districts/{regency_id}', 'districts');
+    Route::get('/villages/all', 'allVillages');
     Route::get('/villages/{district_id}', 'villages');
 });
 
