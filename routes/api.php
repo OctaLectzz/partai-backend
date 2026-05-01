@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CouncilController;
+use App\Http\Controllers\CouncilReportController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventParticipantController;
 use App\Http\Controllers\IndoRegionController;
@@ -60,4 +61,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // KT
     Route::apiResource('ktas', KtaController::class);
+
+    // Council Reports
+    Route::apiResource('council-reports', CouncilReportController::class);
+    Route::delete('council-reports/{councilReport}/media/{media}', [CouncilReportController::class, 'deleteMedia']);
 });

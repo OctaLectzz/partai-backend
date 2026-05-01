@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             MassaSeeder::class,
             CouncilSeeder::class,
             KtaSeeder::class,
+            CouncilReportSeeder::class,
         ]);
     }
 }
