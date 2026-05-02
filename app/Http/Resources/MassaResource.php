@@ -53,6 +53,22 @@ class MassaResource extends JsonResource
             'photo' => $this->photo ? asset('storage/massas/'.$this->photo) : null,
             'notes' => $this->notes,
             'status' => $this->status,
+            'events' => $this->whenLoaded('events', fn () => $this->events->map(function ($event) {
+                return [
+                    'id' => $event->id,
+                    'name' => $event->name,
+                    'start_date' => $event->start_date,
+                    'end_date' => $event->end_date,
+                    'location' => $event->location,
+                    'pivot' => [
+                        'participant_code' => $event->pivot->participant_code,
+                        'qr_code' => $event->pivot->qr_code ? asset('storage/'.$event->pivot->qr_code) : null,
+                        'status' => $event->pivot->status,
+                        'attended_at' => $event->pivot->attended_at,
+                        'message' => $event->pivot->message,
+                    ],
+                ];
+            })),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

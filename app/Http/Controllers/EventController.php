@@ -25,7 +25,7 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
-        $event->load(['category', 'participants'])->loadCount('participants');
+        $event->load(['category', 'participants.massa'])->loadCount('participants');
 
         return new EventResource($event);
     }
@@ -33,7 +33,7 @@ class EventController extends Controller
     public function update(EventRequest $request, Event $event)
     {
         $event->update($request->validated());
-        $event->load('category');
+        $event->load(['category', 'participants.massa']);
 
         return new EventResource($event);
     }

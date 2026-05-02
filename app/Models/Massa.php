@@ -82,4 +82,14 @@ class Massa extends Model
     {
         return $this->belongsTo(Village::class);
     }
+
+    /**
+     * Get the events the massa has registered for/attended.
+     */
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'event_participants')
+            ->withPivot('id', 'participant_code', 'qr_code', 'status', 'attended_at', 'message')
+            ->withTimestamps();
+    }
 }

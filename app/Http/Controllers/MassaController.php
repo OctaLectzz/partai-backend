@@ -10,7 +10,7 @@ class MassaController extends Controller
 {
     public function index()
     {
-        $massas = Massa::with(['province', 'regency', 'district', 'village'])->latest()->get();
+        $massas = Massa::with(['province', 'regency', 'district', 'village', 'events'])->latest()->get();
 
         return MassaResource::collection($massas);
     }
@@ -31,7 +31,7 @@ class MassaController extends Controller
 
     public function show(Massa $massa)
     {
-        $massa->load(['province', 'regency', 'district', 'village']);
+        $massa->load(['province', 'regency', 'district', 'village', 'events']);
 
         return new MassaResource($massa);
     }

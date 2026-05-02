@@ -15,8 +15,6 @@ class EventSeeder extends Seeder
     {
         $categories = Category::pluck('id', 'name');
 
-        // Jika category kosong (belum diseed), ambil null saja atau fallback.
-        // Asumsinya CategorySeeder sudah dijalankan.
         $defaultCategoryId = Category::first()?->id;
 
         if (! $defaultCategoryId) {
@@ -42,7 +40,7 @@ class EventSeeder extends Seeder
                 'name' => 'Kampanye Akbar Terbuka',
                 'description' => 'Kampanye akbar bersama calon legislatif daerah dan tokoh masyarakat.',
                 'organizer' => 'DPW Jawa Barat',
-                'target_participants' => 5000,
+                'target_participants' => 500,
                 'start_date' => '2026-06-15',
                 'start_time' => '13:00',
                 'end_date' => '2026-06-15',
@@ -81,7 +79,7 @@ class EventSeeder extends Seeder
                 'name' => 'Pelatihan Kader Dasar Tingkat I',
                 'description' => 'Pendidikan wajib bagi seluruh kader baru yang bergabung di tingkat cabang.',
                 'organizer' => 'Badan Pendidikan dan Pelatihan',
-                'target_participants' => 50,
+                'target_participants' => 150,
                 'start_date' => '2026-08-10',
                 'start_time' => '08:00',
                 'end_date' => '2026-08-12',
@@ -94,7 +92,7 @@ class EventSeeder extends Seeder
                 'name' => 'Deklarasi Calon Walikota',
                 'description' => 'Acara peresmian dukungan untuk pasangan calon walikota di pilkada mendatang.',
                 'organizer' => 'DPD Kota Medan',
-                'target_participants' => 1000,
+                'target_participants' => 200,
                 'start_date' => '2026-05-05',
                 'start_time' => '10:00',
                 'end_date' => '2026-05-05',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Massa;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,14 +24,32 @@ class EventParticipantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
             'nik' => 'required|string|size:16',
+            'full_name' => 'required|string|max:255',
+            'gender' => 'required|in:M,F',
+            'place_of_birth' => 'nullable|string|max:255',
+            'date_of_birth' => 'required|date',
+            'phone_number' => 'required|string|max:20',
             'email' => 'required|email|max:255',
-            'whatsapp_number' => 'required|string|max:20',
+
+            // Address
+            'address' => 'required|string',
+            'rt' => 'required|string|max:5',
+            'rw' => 'required|string|max:5',
             'province_id' => 'required|string',
             'regency_id' => 'required|string',
             'district_id' => 'required|string',
             'village_id' => 'required|string',
+            'postal_code' => 'required|string|max:10',
+            'latitude' => 'required|numeric|between:-90,90',
+            'longitude' => 'required|numeric|between:-180,180',
+
+            // Additional
+            'profession' => 'nullable|string|max:255',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp,heic|max:2056',
+            'notes' => 'nullable|string',
+
+            // Event Specific
             'message' => 'nullable|string',
         ];
     }
@@ -54,8 +73,11 @@ class EventParticipantRequest extends FormRequest
 
                 // Check if NIK is already registered for this event
                 $nik = $this->input('nik');
-                if ($nik && $event->participants()->where('nik', $nik)->exists()) {
-                    $validator->errors()->add('nik', 'This NIK is already registered for this event.');
+                if ($nik) {
+                    $massa = Massa::where('nik', $nik)->first();
+                    if ($massa && $event->participants()->where('massa_id', $massa->id)->exists()) {
+                        $validator->errors()->add('nik', 'This NIK is already registered for this event.');
+                    }
                 }
             },
         ];

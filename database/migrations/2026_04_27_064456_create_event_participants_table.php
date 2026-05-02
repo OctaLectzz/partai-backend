@@ -14,18 +14,15 @@ return new class extends Migration
         Schema::create('event_participants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('event_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('massa_id')->constrained('massas')->cascadeOnDelete();
             $table->string('participant_code')->unique();
-            $table->string('name');
-            $table->string('nik', 16);
-            $table->string('email');
-            $table->string('whatsapp_number');
-            $table->string('province_id');
-            $table->string('regency_id');
-            $table->string('district_id');
-            $table->string('village_id');
+            $table->string('qr_code')->nullable();
             $table->text('message')->nullable();
             $table->enum('status', ['registered', 'attended'])->default('registered');
+            $table->timestamp('attended_at')->nullable();
             $table->timestamps();
+
+            $table->unique(['event_id', 'massa_id']); // One registration per massa per event
         });
     }
 
