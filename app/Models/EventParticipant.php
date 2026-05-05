@@ -5,12 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 #[Fillable([
-    'event_id', 'massa_id', 'message', 'status', 'qr_code', 'attended_at',
+    'event_id', 'massa_id', 'message', 'status', 'attended_at',
 ])]
 class EventParticipant extends Model
 {
@@ -32,10 +30,6 @@ class EventParticipant extends Model
             } while (static::where('participant_code', $code)->exists());
 
             $participant->participant_code = $code;
-            $participant->qr_code = $code.'.png';
-
-            // Generate QR Code
-            Storage::disk('public')->put('qrcodes/'.$code.'.png', QrCode::format('png')->size(300)->generate($code));
         });
     }
 

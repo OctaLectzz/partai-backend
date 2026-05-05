@@ -49,6 +49,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Event
     Route::apiResource('events', EventController::class);
+
+    // Event Participant
     Route::get('events/{event:slug}/participants', [EventParticipantController::class, 'index']);
     Route::patch('events/{event:slug}/participants/{participant}', [EventParticipantController::class, 'updateStatus']);
     Route::post('/events/{event:slug}/participants/scan/{participantCode}', [EventParticipantController::class, 'scanQr']);

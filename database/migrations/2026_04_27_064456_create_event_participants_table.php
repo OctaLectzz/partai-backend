@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('event_id')->constrained()->cascadeOnDelete();
             $table->foreignId('massa_id')->constrained('massas')->cascadeOnDelete();
             $table->string('participant_code')->unique();
-            $table->string('qr_code')->nullable();
             $table->text('message')->nullable();
             $table->enum('status', ['registered', 'attended'])->default('registered');
             $table->timestamp('attended_at')->nullable();

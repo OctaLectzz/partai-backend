@@ -62,7 +62,6 @@ class MassaResource extends JsonResource
                     'location' => $event->location,
                     'pivot' => [
                         'participant_code' => $event->pivot->participant_code,
-                        'qr_code' => $event->pivot->qr_code ? asset('storage/'.$event->pivot->qr_code) : null,
                         'status' => $event->pivot->status,
                         'attended_at' => $event->pivot->attended_at,
                         'message' => $event->pivot->message,

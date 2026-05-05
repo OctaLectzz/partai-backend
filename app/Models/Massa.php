@@ -89,7 +89,7 @@ class Massa extends Model
     public function events()
     {
         return $this->belongsToMany(Event::class, 'event_participants')
-            ->withPivot('id', 'participant_code', 'qr_code', 'status', 'attended_at', 'message')
+            ->withPivot('id', 'participant_code', 'status', 'attended_at', 'message')
             ->withTimestamps();
     }
 }

@@ -274,47 +274,31 @@ class TicketImageGenerator
         );
 
         $code = $this->participant->participant_code;
-        $qrPath = storage_path('app/public/qrcodes/'.$this->participant->qr_code);
 
-        if (file_exists($qrPath) && str_ends_with($qrPath, '.png')) {
-            // Load from storage if it's a PNG
-            $qrImg = imagecreatefrompng($qrPath);
-            $origWidth = imagesx($qrImg);
-            $origHeight = imagesy($qrImg);
+        // Generate QR matrix using BaconQrCode
+        $qrCode = Encoder::encode($code, ErrorCorrectionLevel::M());
+        $matrix = $qrCode->getMatrix();
+        $matrixWidth = $matrix->getWidth();
+        $moduleSize = (int) ($qrSize / $matrixWidth);
+        $offset = (int) (($qrSize - ($moduleSize * $matrixWidth)) / 2);
 
-            imagecopyresampled(
-                $this->img, $qrImg,
-                $qrX, $qrY,
-                0, 0,
-                $qrSize, $qrSize,
-                $origWidth, $origHeight
-            );
-            imagedestroy($qrImg);
-        } else {
-            // Generate QR matrix using BaconQrCode
-            $qrCode = Encoder::encode($code, ErrorCorrectionLevel::M());
-            $matrix = $qrCode->getMatrix();
-            $matrixWidth = $matrix->getWidth();
-            $moduleSize = (int) ($qrSize / $matrixWidth);
-            $offset = (int) (($qrSize - ($moduleSize * $matrixWidth)) / 2);
-
-            for ($row = 0; $row < $matrixWidth; $row++) {
-                for ($col = 0; $col < $matrixWidth; $col++) {
-                    if ($matrix->get($col, $row) === 1) {
-                        $px = $qrX + $offset + ($col * $moduleSize);
-                        $py = $qrY + $offset + ($row * $moduleSize);
-                        imagefilledrectangle(
-                            $this->img,
-                            $px,
-                            $py,
-                            $px + $moduleSize - 1,
-                            $py + $moduleSize - 1,
-                            $this->colors['textDark']
-                        );
-                    }
+        for ($row = 0; $row < $matrixWidth; $row++) {
+            for ($col = 0; $col < $matrixWidth; $col++) {
+                if ($matrix->get($col, $row) === 1) {
+                    $px = $qrX + $offset + ($col * $moduleSize);
+                    $py = $qrY + $offset + ($row * $moduleSize);
+                    imagefilledrectangle(
+                        $this->img,
+                        $px,
+                        $py,
+                        $px + $moduleSize - 1,
+                        $py + $moduleSize - 1,
+                        $this->colors['textDark']
+                    );
                 }
             }
         }
+        
 
         // Participant code text below QR
         $codeY = $qrY + $qrSize + $padding + 18;
