@@ -74,31 +74,31 @@ class EventParticipantController extends Controller
     {
         // Check if event is active/valid for check-in
         if ($event->status === 'cancelled') {
-            return response()->json(['message' => 'This event has been cancelled.'], 422);
+            return response()->json(['message' => 'dashboard.qrCheckin.response.eventCancelled'], 422);
         }
 
         if ($event->status === 'draft') {
-            return response()->json(['message' => 'This event is still in draft and not open for check-in.'], 422);
+            return response()->json(['message' => 'dashboard.qrCheckin.response.eventDraft'], 422);
         }
 
         // Find participant by code globally first to give better feedback
         $participant = EventParticipant::with('massa')->where('participant_code', $participantCode)->first();
 
         if (! $participant) {
-            return response()->json(['message' => 'Invalid participant code.'], 404);
+            return response()->json(['message' => 'dashboard.qrCheckin.response.invalidCode'], 404);
         }
 
         // Validate event ownership
         if ($participant->event_id !== $event->id) {
             return response()->json([
-                'message' => 'This participant is registered for a different event: '.$participant->event->name,
+                'message' => 'dashboard.qrCheckin.response.wrongEvent',
                 'registered_event' => $participant->event->name,
             ], 422);
         }
 
         if ($participant->status === 'attended') {
             return response()->json([
-                'message' => 'Participant already checked in.',
+                'message' => 'dashboard.qrCheckin.response.alreadyCheckedIn',
                 'participant' => new EventParticipantResource($participant),
             ], 422);
         }
@@ -109,7 +109,7 @@ class EventParticipantController extends Controller
         ]);
 
         return (new EventParticipantResource($participant))->additional([
-            'message' => 'Check-in successful! Welcome, '.$participant->massa->full_name,
+            'message' => 'dashboard.qrCheckin.response.successCheckin',
         ]);
     }
 

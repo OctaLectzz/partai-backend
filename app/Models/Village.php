@@ -15,6 +15,18 @@ use App\Models\District;
 
 /**
  * Village Model.
+ *
+ * @property int $id
+ * @property string $district_id
+ * @property string $name
+ * @property-read District $district
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Village newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Village newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Village query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Village whereDistrictId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Village whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Village whereName($value)
+ * @mixin \Eloquent
  */
 class Village extends Model
 {

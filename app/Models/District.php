@@ -16,6 +16,20 @@ use App\Models\Village;
 
 /**
  * District Model.
+ *
+ * @property int $id
+ * @property string $regency_id
+ * @property string $name
+ * @property-read Regency $regency
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Village> $villages
+ * @property-read int|null $villages_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|District newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|District newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|District query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|District whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|District whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|District whereRegencyId($value)
+ * @mixin \Eloquent
  */
 class District extends Model
 {
