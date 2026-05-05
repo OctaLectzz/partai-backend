@@ -103,6 +103,9 @@ class EventSeeder extends Seeder
         ];
 
         foreach ($events as $event) {
+            $createdAt = fake()->dateTimeBetween('-1 year', 'now');
+            $event['created_at'] = $createdAt;
+            $event['updated_at'] = $createdAt;
             Event::create($event);
         }
     }

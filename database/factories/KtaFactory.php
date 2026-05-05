@@ -34,6 +34,8 @@ class KtaFactory extends Factory
             'village_id' => '1101010001',
             'postal_code' => $this->faker->postcode(),
             'photo' => 'https://ui-avatars.com/api/?name='.urlencode($this->faker->name()).'&background=random',
+            'created_at' => $createdAt = $this->faker->dateTimeBetween('-1 year', 'now'),
+            'updated_at' => $createdAt,
         ];
     }
 }

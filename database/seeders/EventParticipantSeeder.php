@@ -46,12 +46,15 @@ class EventParticipantSeeder extends Seeder
 
                 $status = $faker->randomElement(['registered', 'attended']);
 
+                $createdAt = $faker->dateTimeBetween('-1 year', 'now');
                 EventParticipant::create([
                     'event_id' => $event->id,
                     'massa_id' => $massa->id,
                     'message' => $faker->boolean(70) ? $faker->sentence() : null,
                     'status' => $status,
                     'attended_at' => $status === 'attended' ? clone $faker->dateTimeBetween($event->start_date, $event->end_date) : null,
+                    'created_at' => $createdAt,
+                    'updated_at' => $createdAt,
                 ]);
             }
         }

@@ -50,6 +50,8 @@ class UserFactory extends Factory
             'type' => fake()->randomElement(['admin', 'user']),
             'status' => fake()->boolean(90), // 90% chance of being active
             'remember_token' => Str::random(10),
+            'created_at' => $createdAt = fake()->dateTimeBetween('-1 year', 'now'),
+            'updated_at' => $createdAt,
         ];
     }
 

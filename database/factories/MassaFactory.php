@@ -416,6 +416,8 @@ class MassaFactory extends Factory
             'photo' => null,
             'notes' => fake()->optional(0.3)->sentence(),
             'status' => fake()->randomElement(['active', 'active', 'active', 'active', 'inactive']),
+            'created_at' => $createdAt = fake()->dateTimeBetween('-1 year', 'now'),
+            'updated_at' => $createdAt,
         ];
     }
 

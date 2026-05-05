@@ -143,6 +143,9 @@ class CouncilReportSeeder extends Seeder
         ];
 
         foreach ($reports as $report) {
+            $createdAt = fake()->dateTimeBetween('-1 year', 'now');
+            $report['created_at'] = $createdAt;
+            $report['updated_at'] = $createdAt;
             CouncilReport::create($report);
         }
     }
